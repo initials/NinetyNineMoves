@@ -32,12 +32,17 @@ namespace NinetyNineMoves
 
             add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "MoveCounter" }, { "x", (((int)Registry.levelSize.X * 24) / 2).ToString() }, { "y", (((int)Registry.levelSize.X * 24) / 2).ToString() } }));
 
-            for (int i = 0; i < 55; i++)
+            generateEnemies(55);
+        }
+
+        private void generateEnemies(int NumberOfEnemies)
+        {
+            for (int i = 0; i < NumberOfEnemies; i++)
             {
                 int rx = FlxU.randomInt(1, Registry.levelSize.X);
                 int ry = FlxU.randomInt(1, Registry.levelSize.Y);
 
-                int rz = Registry.level.getTile(rx, ry);
+                int rz = Registry.levelAsTilemap.getTile(rx, ry);
 
                 if (rz == 292)
                 {
@@ -56,6 +61,8 @@ namespace NinetyNineMoves
             {
                 if (FlxG.keys.justPressed(Keys.Enter))
                 {
+                    Registry.levelNumber++;
+
                     FlxG.state = new PlayState();
                     return;
                 }

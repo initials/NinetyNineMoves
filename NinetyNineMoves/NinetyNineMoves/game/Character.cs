@@ -62,9 +62,9 @@ namespace NinetyNineMoves
             {
                 if (FlxG.keys.S || FlxU.random() < -0.015f)
                 {
-                    int tileNo = Registry.level.getTile((int)((x+12) / 24), (int)((y+12) / 24));
+                    int tileNo = Registry.levelAsTilemap.getTile((int)((x+12) / 24), (int)((y+12) / 24));
 
-                    int tileDown = Registry.level.getTile((int)((x+12) / 24), (int)((y + 36) / 24));
+                    int tileDown = Registry.levelAsTilemap.getTile((int)((x+12) / 24), (int)((y + 36) / 24));
                     //Console.WriteLine("{0} {1}", tileNo, tileDown);
 
                     if (tileDown == 292)
@@ -72,13 +72,13 @@ namespace NinetyNineMoves
                 }
                 if (FlxG.keys.W || FlxU.random() < -0.015f)
                 {
-                    int tileDown = Registry.level.getTile((int)((x + 12) / 24), (int)((y - 12) / 24));
+                    int tileDown = Registry.levelAsTilemap.getTile((int)((x + 12) / 24), (int)((y - 12) / 24));
                     if (tileDown == 292)
                         moveUp();
                 }
                 if (FlxG.keys.A || FlxU.random() < -0.015f)
                 {
-                    int tileDown = Registry.level.getTile((int)((x - 12) / 24), (int)((y+12) / 24));
+                    int tileDown = Registry.levelAsTilemap.getTile((int)((x - 12) / 24), (int)((y+12) / 24));
                     if (tileDown == 292)
                     {
                         facing = Flx2DFacing.Right;
@@ -88,7 +88,7 @@ namespace NinetyNineMoves
                 }
                 if (FlxG.keys.D || FlxU.random() < -0.015f)
                 {
-                    int tileDown = Registry.level.getTile((int)((x + 36) / 24), (int)((y + 12) / 24));
+                    int tileDown = Registry.levelAsTilemap.getTile((int)((x + 36) / 24), (int)((y + 12) / 24));
                     if (tileDown == 292)
                     {
                         facing = Flx2DFacing.Left;

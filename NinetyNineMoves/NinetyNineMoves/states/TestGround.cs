@@ -129,7 +129,7 @@ namespace NinetyNineMoves
             tiles.setScrollFactors(1, 1);
             add(tiles);
 
-            Registry.level = tiles;
+            Registry.levelAsTilemap = tiles;
 
             for (int i = 0; i < 55; i++)
             {

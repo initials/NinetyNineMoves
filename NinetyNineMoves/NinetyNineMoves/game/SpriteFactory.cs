@@ -53,11 +53,14 @@ namespace NinetyNineMoves
             string newMap = cav.convertMultiArrayToString(matr);
 
             FlxTilemap tiles = new FlxTilemap();
+            // Remap guide before loading map
+            tiles.remapGuide = Registry.createAltTileRemap();
             tiles.auto = FlxTilemap.REMAPALT;
             tiles.loadMap(newMap, FlxG.Content.Load<Texture2D>("tiles/oryx_16bit_fantasy_world_trans"), 24, 24);
             tiles.setScrollFactors(1, 1);
+            
 
-            Registry.level = tiles;
+            Registry.levelAsTilemap = tiles;
 
             return tiles;
 
