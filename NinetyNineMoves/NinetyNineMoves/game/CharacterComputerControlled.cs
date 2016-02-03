@@ -28,7 +28,7 @@ namespace NinetyNineMoves
             : base(xPos, yPos)
         {
             loadGraphic("characters/oryx_16bit_fantasy_creatures_trans", true, false, 24, 24);
-            int c = FlxU.randomInt(21, 29);
+            int c = FlxU.randomInt(381, 389);
 
             addAnimation("idle", new int[] { c, (c + 20) }, FlxU.randomInt(2, 6), true);
 

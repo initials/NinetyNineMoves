@@ -31,13 +31,6 @@ namespace NinetyNineMoves
         public Character(int xPos, int yPos)
             : base(xPos, yPos)
         {
-            loadGraphic("characters/oryx_16bit_fantasy_creatures_trans", true, false, 24, 24);
-            int c = FlxU.randomInt(21, 29);
-
-            addAnimation("idle", new int[] { c, (c+20) }, FlxU.randomInt(2,6), true);
-
-            play("idle");
-
             tween = new Vector2Tweener(new Vector2(x,y), new Vector2(x,y), 0.3f, XNATweener.Cubic.EaseOut);
 
             tween.Ended +=new EndHandler(endTween);
