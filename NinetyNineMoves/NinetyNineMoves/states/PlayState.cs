@@ -59,7 +59,6 @@ namespace NinetyNineMoves
 
                 if (empties.Contains(rz))
                 {
-                    //Console.WriteLine(TypeOfSprite, rx.ToString(), ry.ToString());
                     if (TypeOfSprite == "PickUp")
                     {
                         pickups.add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name",  TypeOfSprite}, 
