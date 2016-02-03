@@ -24,7 +24,7 @@ namespace NinetyNineMoves
             
             //create hero in middle
 
-            FlxSprite hero = SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "Character" }, { "x", (((int)Registry.levelSize.X * 24) / 2 ).ToString()}, { "y", (((int)Registry.levelSize.X * 24)/2).ToString() } });
+            FlxSprite hero = SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "CharacterPlayerControlled" }, { "x", (((int)Registry.levelSize.X * 24) / 2 ).ToString()}, { "y", (((int)Registry.levelSize.X * 24)/2).ToString() } });
             add(hero);
 
             FlxG.follow(hero, 9);
@@ -32,10 +32,14 @@ namespace NinetyNineMoves
 
             add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "MoveCounter" }, { "x", (((int)Registry.levelSize.X * 24) / 2).ToString() }, { "y", (((int)Registry.levelSize.X * 24) / 2).ToString() } }));
 
-            generateEnemies(55);
+            generateEnemies(55, "CharacterComputerControlled");
+
+            generateEnemies(55, "PickUp");
+
+
         }
 
-        private void generateEnemies(int NumberOfEnemies)
+        private void generateEnemies(int NumberOfEnemies, string TypeOfSprite)
         {
             for (int i = 0; i < NumberOfEnemies; i++)
             {
@@ -44,9 +48,13 @@ namespace NinetyNineMoves
 
                 int rz = Registry.levelAsTilemap.getTile(rx, ry);
 
-                if (rz == 292)
+                int[] empties = Registry.levelAsTilemap.remapGuide[15];
+
+                if (empties.Contains(rz))
                 {
-                    add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "PickUp" }, 
+                    //Console.WriteLine(TypeOfSprite, rx.ToString(), ry.ToString());
+
+                    add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name",  TypeOfSprite}, 
                     { "x", (rx * 24).ToString() }, 
                     { "y", (ry * 24).ToString() } }));
                 }
