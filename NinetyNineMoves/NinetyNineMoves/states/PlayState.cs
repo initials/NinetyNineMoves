@@ -12,6 +12,8 @@ namespace NinetyNineMoves
 {
     public class PlayState : FlxState
     {
+        private FlxGroup pickups;
+        private FlxSprite hero;
 
         override public void create()
         {
@@ -24,7 +26,7 @@ namespace NinetyNineMoves
             
             //create hero in middle
 
-            FlxSprite hero = SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "CharacterPlayerControlled" }, { "x", (((int)Registry.levelSize.X * 24) / 2 ).ToString()}, { "y", (((int)Registry.levelSize.X * 24)/2).ToString() } });
+            hero = SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "CharacterPlayerControlled" }, { "x", (((int)Registry.levelSize.X * 24) / 2 ).ToString()}, { "y", (((int)Registry.levelSize.X * 24)/2).ToString() } });
             add(hero);
 
             FlxG.follow(hero, 9);
@@ -34,8 +36,13 @@ namespace NinetyNineMoves
 
             generateEnemies(55, "CharacterComputerControlled");
 
+            pickups = new FlxGroup();
+
             generateEnemies(55, "PickUp");
 
+            add(pickups);
+
+            FlxG.showBounds = true;
 
         }
 
@@ -53,16 +60,26 @@ namespace NinetyNineMoves
                 if (empties.Contains(rz))
                 {
                     //Console.WriteLine(TypeOfSprite, rx.ToString(), ry.ToString());
-
-                    add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name",  TypeOfSprite}, 
-                    { "x", (rx * 24).ToString() }, 
-                    { "y", (ry * 24).ToString() } }));
+                    if (TypeOfSprite == "PickUp")
+                    {
+                        pickups.add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name",  TypeOfSprite}, 
+                                { "x", (rx * 24).ToString() }, 
+                                { "y", (ry * 24).ToString() } }));
+                    }
+                    else
+                    {
+                        add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name",  TypeOfSprite}, 
+                                { "x", (rx * 24).ToString() }, 
+                                { "y", (ry * 24).ToString() } }));
+                    }
                 }
             }
         }
 
         override public void update()
         {
+            FlxU.overlap(hero, pickups, overlapped);
+
             base.update();
 
             if (FlxG.elapsedTotal> 1.0f)

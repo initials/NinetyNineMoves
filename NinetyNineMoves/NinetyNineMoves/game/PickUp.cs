@@ -31,6 +31,13 @@ namespace NinetyNineMoves
             //createGraphic(24, 24, Color.Green);
             //tiles.loadMap(newMap, FlxG.Content.Load<Texture2D>("tiles/oryx_16bit_fantasy_world_trans"), 24, 24);
             loadGraphic("tiles/oryx_16bit_fantasy_world_trans", false, false, 24, 24);
+            width = 48;
+            height = 48;
+            setOffset(12, 12);
+            x -= 24;
+            y -= 24;
+            
+
             //436,437,438,439,440,441
 
             string choices = "257,258,259,260,261,262,263,264,265,266,267,268,269,270,314,315,316,317,318,319,320,321,322,323,324,325,326,327,371,372,373,374,375,376,377,378,379,380,381,382,383,384,428,429,430,431,432,433,434,435,436,437,438,439,440,441,485,486,487,488,489,490,491,492,493,494,495,496,497,498,542,543,544,545,546,547,548,549,550,551,552,553,554,555,599,600,601,602,603,604,605,606,607,608,609,610,611,612";
@@ -122,6 +129,14 @@ namespace NinetyNineMoves
         public override void kill()
         {
             base.kill();
+        }
+
+        public override void overlapped(FlxObject obj)
+        {
+            
+            base.overlapped(obj);
+
+            kill();
         }
     }
 }
