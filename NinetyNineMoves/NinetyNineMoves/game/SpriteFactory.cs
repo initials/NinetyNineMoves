@@ -54,6 +54,7 @@ namespace NinetyNineMoves
 
             FlxTilemap tiles = new FlxTilemap();
             // Remap guide before loading map
+            //tiles.remapGuide = Registry.createAltTileRemap();
             tiles.remapGuide = Registry.createAltTileRemap();
             tiles.auto = FlxTilemap.REMAPALT;
             tiles.loadMap(newMap, FlxG.Content.Load<Texture2D>("tiles/oryx_16bit_fantasy_world_trans"), 24, 24);

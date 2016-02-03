@@ -62,24 +62,27 @@ namespace NinetyNineMoves
             {
                 if (FlxG.keys.S || FlxU.random() < -0.015f)
                 {
-                    int tileNo = Registry.levelAsTilemap.getTile((int)((x+12) / 24), (int)((y+12) / 24));
-
                     int tileDown = Registry.levelAsTilemap.getTile((int)((x+12) / 24), (int)((y + 36) / 24));
-                    //Console.WriteLine("{0} {1}", tileNo, tileDown);
+                    int[] empties = Registry.levelAsTilemap.remapGuide[15];
 
-                    if (tileDown == 292)
+                    if (empties.Contains(tileDown))
+                    {
                         moveDown();
+                    }
                 }
                 if (FlxG.keys.W || FlxU.random() < -0.015f)
                 {
                     int tileDown = Registry.levelAsTilemap.getTile((int)((x + 12) / 24), (int)((y - 12) / 24));
-                    if (tileDown == 292)
+                    int[] empties = Registry.levelAsTilemap.remapGuide[15];
+                    if (empties.Contains(tileDown))
                         moveUp();
                 }
                 if (FlxG.keys.A || FlxU.random() < -0.015f)
                 {
                     int tileDown = Registry.levelAsTilemap.getTile((int)((x - 12) / 24), (int)((y+12) / 24));
-                    if (tileDown == 292)
+                    int[] empties = Registry.levelAsTilemap.remapGuide[15];
+
+                    if (empties.Contains(tileDown))
                     {
                         facing = Flx2DFacing.Right;
 
@@ -89,7 +92,9 @@ namespace NinetyNineMoves
                 if (FlxG.keys.D || FlxU.random() < -0.015f)
                 {
                     int tileDown = Registry.levelAsTilemap.getTile((int)((x + 36) / 24), (int)((y + 12) / 24));
-                    if (tileDown == 292)
+                    int[] empties = Registry.levelAsTilemap.remapGuide[15];
+
+                    if (empties.Contains(tileDown))
                     {
                         facing = Flx2DFacing.Left;
 
