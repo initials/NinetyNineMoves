@@ -33,9 +33,9 @@ namespace NinetyNineMoves
             loadGraphic("tiles/oryx_16bit_fantasy_world_trans", false, false, 24, 24);
             width = 48;
             height = 48;
-            setOffset(12, 12);
-            x -= 24;
-            y -= 24;
+            setOffset(-12, -12);
+            x -= 12;
+            y -= 12;
             
 
             //436,437,438,439,440,441

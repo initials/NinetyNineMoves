@@ -42,7 +42,7 @@ namespace NinetyNineMoves
 
             add(pickups);
 
-            FlxG.showBounds = true;
+            //FlxG.showBounds = true;
 
         }
 
