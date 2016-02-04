@@ -87,7 +87,7 @@ namespace NinetyNineMoves
         }
         protected bool overlapEnemy(object Sender, FlxSpriteCollisionEvent e)
         {
-            battleUI.startBattle();
+            battleUI.startBattle(((FlxSprite)(e.Object2)), ((FlxSprite)(e.Object1)));
             return true;
         }
 
