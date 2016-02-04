@@ -64,7 +64,6 @@ namespace NinetyNineMoves
             FlxU.overlap(hero, pickups, overlapped);
             FlxU.overlap(hero, enemies, overlapEnemy);
 
-
             base.update();
 
             if (FlxG.elapsedTotal> 1.0f)
@@ -90,6 +89,5 @@ namespace NinetyNineMoves
             battleUI.startBattle(((FlxSprite)(e.Object2)), ((FlxSprite)(e.Object1)));
             return true;
         }
-
     }
 }
