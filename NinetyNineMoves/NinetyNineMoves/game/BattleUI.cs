@@ -59,7 +59,7 @@ namespace NinetyNineMoves
             base.render(spriteBatch);
 
             renderWithOffset(spriteBatch, battleTarget, box.x + box.width, box.y, 6);
-            renderWithOffset(spriteBatch, battlePlayer, box.x, box.y, 6);
+            renderWithOffset(spriteBatch, battlePlayer, box.x,             box.y + battlePlayer.height / 2, 6);
         
         }
 
@@ -97,7 +97,7 @@ namespace NinetyNineMoves
             for (int i = 0; i < 4; i++)
             {
                 FlxSprite x;
-                keys.add(x = new FlxSprite(i * 75, 10).loadGraphic("flixel/buttons/map360", true, false, 100, 100));
+                keys.add(x = new FlxSprite(box.x + (i * 75), box.y).loadGraphic("flixel/buttons/map360", true, false, 100, 100));
                 x.frame = FlxHud.xboxButtonA;
                 x.setScrollFactors(0, 0);
             }
