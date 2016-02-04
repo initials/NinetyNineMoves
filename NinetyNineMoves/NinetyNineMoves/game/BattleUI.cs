@@ -6,6 +6,8 @@ using org.flixel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using XNATweener;
+
 namespace NinetyNineMoves
 {
     class BattleUI : FlxGroup
@@ -14,6 +16,8 @@ namespace NinetyNineMoves
         private FlxSprite battleTarget;
         private FlxSprite battlePlayer;
         private UIBox box;
+        private Tweener targetTweener;
+        private Tweener playerTweener;
 
         public BattleUI()
             : base()
@@ -21,7 +25,6 @@ namespace NinetyNineMoves
 
             int midX = (FlxG.width / 2) - (320 / 2);
             int midY = 10;
-
 
             box = new UIBox(midX, midY, 320, 180);
             box.setScrollFactors(0, 0);
@@ -35,6 +38,13 @@ namespace NinetyNineMoves
             
             keys = new FlxGroup();
             add(keys);
+
+            playerTweener = new Tweener(0, box.x, 1.0f, Circular.EaseOut);
+            playerTweener.Start();
+
+            targetTweener = new Tweener(FlxG.width, box.x + box.width, 0.9f, Circular.EaseOut);
+            targetTweener.Start();
+
         }
 
         /// <summary>
@@ -42,14 +52,20 @@ namespace NinetyNineMoves
         /// </summary>
         override public void update()
         {
-            if (FlxG.keys.justPressed(Keys.Down))
+            if (visible)
             {
-                keys.getFirstExtant().kill();
+                if (FlxG.keys.justPressed(Keys.Down))
+                {
+                    keys.getFirstExtant().kill();
+                }
+                if (keys.getFirstExtant() == null)
+                {
+                    this.endBattle();
+                }
             }
-            if (keys.getFirstExtant() == null)
-            {
-                this.endBattle();
-            }
+            playerTweener.Update(FlxG.elapsedAsGameTime);
+            targetTweener.Update(FlxG.elapsedAsGameTime);
+
             base.update();
         }
 
@@ -58,8 +74,8 @@ namespace NinetyNineMoves
 
             base.render(spriteBatch);
 
-            renderWithOffset(spriteBatch, battleTarget, box.x + box.width, box.y, 6);
-            renderWithOffset(spriteBatch, battlePlayer, box.x,             box.y + battlePlayer.height / 2, 6);
+            renderWithOffset(spriteBatch, battleTarget, targetTweener.Position, box.y + (box.height / 2), 6);
+            renderWithOffset(spriteBatch, battlePlayer, playerTweener.Position, box.y + (box.height / 2), 6);
         
         }
 
@@ -91,8 +107,7 @@ namespace NinetyNineMoves
             battlePlayer = BattlePlayer;
 
             battlePlayer.facing = Flx2DFacing.Left;
-            BattleTarget.facing = Flx2DFacing.Right;
-
+            battleTarget.facing = Flx2DFacing.Right;
             
             for (int i = 0; i < 4; i++)
             {
@@ -105,6 +120,12 @@ namespace NinetyNineMoves
             Console.WriteLine("Starting battle");
             visible = true;
             Registry.canMove = false;
+
+            playerTweener.Reset();
+            targetTweener.Reset();
+            playerTweener.Start();
+            targetTweener.Start();
+
         }
 
         public void endBattle()
