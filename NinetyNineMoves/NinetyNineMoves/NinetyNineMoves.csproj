@@ -165,9 +165,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="avatar\Avatar.cs" />
+    <Compile Include="game\BattleUI.cs" />
     <Compile Include="game\CharacterComputerControlled.cs" />
     <Compile Include="game\CharacterPlayerControlled.cs" />
     <Compile Include="game\MoveCounter.cs" />
+    <Compile Include="game\UIBox.cs" />
     <Compile Include="Registry.cs" />
     <Compile Include="game\Andre.cs" />
     <Compile Include="states\TestGround.cs" />

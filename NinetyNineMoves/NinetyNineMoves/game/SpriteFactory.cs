@@ -16,6 +16,16 @@ namespace NinetyNineMoves
 
         }
 
+        public static FlxSprite createObject(string Name, int x, int y)
+        {
+            string namePass = "NinetyNineMoves." + Name;
+            var typ = Type.GetType(namePass);
+            var newSprite = (FlxSprite)Activator.CreateInstance(typ, x, y);
+            return newSprite;
+        }
+
+
+
         public static FlxSprite createTileblock(Dictionary<string, string> SpriteInfo)
         {
             string namePass = "NinetyNineMoves." + SpriteInfo["Name"];

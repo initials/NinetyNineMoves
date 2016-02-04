@@ -20,6 +20,14 @@ namespace NinetyNineMoves
         public static Vector2 levelSize;
         public static int levelNumber = 1;
 
+        public static int levelsPerWorld = 4;
+
+
+        /// <summary>
+        /// Used to shut down play while battle event takes place.
+        /// </summary>
+        public static bool canMove=true;
+
         public Registry()
         {
             //midi = new FlxMidi();

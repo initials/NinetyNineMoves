@@ -10,38 +10,16 @@ using org.flixel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using XNATweener;
-
 namespace NinetyNineMoves
 {
-    class Character : FlxSprite
+    class UIBox : FlxTileblock
     {
-        /// <summary>
-        /// A temporary bool to determine if the sprite is ready.
-        /// </summary>
-        private bool _ready;
-
-        public Vector2Tweener tween;
-
-        /// <summary>
-        /// Sprite Constructor
-        /// </summary>
-        /// <param name="xPos"></param>
-        /// <param name="yPos"></param>
-        public Character(int xPos, int yPos)
-            : base(xPos, yPos)
+        public UIBox(int xPos, int yPos, int Width, int Height)
+            : base(xPos, yPos, Width, Height)
         {
-            tween = new Vector2Tweener(new Vector2(x,y), new Vector2(x,y), 0.3f, XNATweener.Cubic.EaseOut);
-
-            tween.Ended +=new EndHandler(endTween);
-
-            tween.Pause();
-            
-        }
-
-        public void endTween()
-        {
-            tween.Pause();
+            auto = FlxTileblock.HUDELEMENT;
+            loadTiles("ui/_sheet_window_07", 16, 16, 0);
+            setScrollFactors(0, 0);
         }
 
         /// <summary>
@@ -49,49 +27,7 @@ namespace NinetyNineMoves
         /// </summary>
         override public void update()
         {
-            if (Registry.canMove)
-                move();
-
-            x = tween.Position.X;
-            y = tween.Position.Y;
-
-            tween.Update(FlxG.elapsedAsGameTime);
-
             base.update();
-        }
-
-        public virtual void move()
-        {
-            
-        }
-
-        public virtual void moveRight()
-        {
-            
-
-            tween = new Vector2Tweener(new Vector2(x, y), new Vector2(x + 24, y), 0.3f, XNATweener.Cubic.EaseOut);
-            tween.Ended += new EndHandler(endTween);
-        }
-
-        public virtual void moveLeft()
-        {
-
-            tween = new Vector2Tweener(new Vector2(x, y), new Vector2(x - 24, y), 0.3f, XNATweener.Cubic.EaseOut);
-            tween.Ended += new EndHandler(endTween);
-        }
-
-        public virtual void moveUp()
-        {
-
-            tween = new Vector2Tweener(new Vector2(x, y), new Vector2(x, y - 24), 0.3f, XNATweener.Cubic.EaseOut);
-            tween.Ended += new EndHandler(endTween);
-        }
-
-        public virtual void moveDown()
-        {
-
-            tween = new Vector2Tweener(new Vector2(x, y), new Vector2(x, y + 24), 0.3f, XNATweener.Cubic.EaseOut);
-            tween.Ended += new EndHandler(endTween);
         }
 
         /// <summary>

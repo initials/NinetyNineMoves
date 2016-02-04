@@ -13,7 +13,9 @@ namespace NinetyNineMoves
     public class PlayState : FlxState
     {
         private FlxGroup pickups;
+        private FlxGroup enemies;
         private FlxSprite hero;
+        private BattleUI battleUI;
 
         override public void create()
         {
@@ -32,52 +34,36 @@ namespace NinetyNineMoves
             FlxG.follow(hero, 9);
             FlxG.followBounds(0, 0, (int)Registry.levelSize.X * 24, (int)Registry.levelSize.Y * 24);
 
-            add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "MoveCounter" }, { "x", (((int)Registry.levelSize.X * 24) / 2).ToString() }, { "y", (((int)Registry.levelSize.X * 24) / 2).ToString() } }));
-
-            generateEnemies(55, "CharacterComputerControlled");
+            enemies = new FlxGroup();
+            addRandomObjects(55, "CharacterComputerControlled", enemies);
+            add(enemies);
 
             pickups = new FlxGroup();
-
-            generateEnemies(55, "PickUp");
-
+            addRandomObjects(55, "PickUp", pickups);
             add(pickups);
 
             //FlxG.showBounds = true;
+            add(SpriteFactory.createTileblock(new Dictionary<string, string> { { "Name", "UIBox" }, { "x", "10" }, { "y", "10" }, { "width", "64" }, { "height", "32" } }));
+            add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "MoveCounter" }, { "x", "-1" }, { "y", "-1" } }));
 
+            add(battleUI = new BattleUI());
         }
 
-        private void generateEnemies(int NumberOfEnemies, string TypeOfSprite)
+        private void addRandomObjects(int NumberToAdd, string typeOfObject, FlxGroup group)
         {
-            for (int i = 0; i < NumberOfEnemies; i++)
+            for (int i = 0; i < NumberToAdd; i++)
             {
-                int rx = FlxU.randomInt(1, Registry.levelSize.X);
-                int ry = FlxU.randomInt(1, Registry.levelSize.Y);
-
-                int rz = Registry.levelAsTilemap.getTile(rx, ry);
-
-                int[] empties = Registry.levelAsTilemap.remapGuide[15];
-
-                if (empties.Contains(rz))
-                {
-                    if (TypeOfSprite == "PickUp")
-                    {
-                        pickups.add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name",  TypeOfSprite}, 
-                                { "x", (rx * 24).ToString() }, 
-                                { "y", (ry * 24).ToString() } }));
-                    }
-                    else
-                    {
-                        add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name",  TypeOfSprite}, 
-                                { "x", (rx * 24).ToString() }, 
-                                { "y", (ry * 24).ToString() } }));
-                    }
-                }
+                Vector2 randomSpot = Registry.levelAsTilemap.getRandomTilePositionWithType(Registry.levelAsTilemap.remapGuide[15]);
+                if (group == null) add(SpriteFactory.createObject(typeOfObject, (int)randomSpot.X, (int)randomSpot.Y));
+                else group.add(SpriteFactory.createObject(typeOfObject, (int)randomSpot.X, (int)randomSpot.Y));
             }
         }
 
         override public void update()
         {
             FlxU.overlap(hero, pickups, overlapped);
+            FlxU.overlap(hero, enemies, overlapEnemy);
+
 
             base.update();
 
@@ -97,6 +83,11 @@ namespace NinetyNineMoves
         {
             ((FlxObject)(e.Object1)).overlapped(e.Object2);
             ((FlxObject)(e.Object2)).overlapped(e.Object1);
+            return true;
+        }
+        protected bool overlapEnemy(object Sender, FlxSpriteCollisionEvent e)
+        {
+            battleUI.startBattle();
             return true;
         }
 
