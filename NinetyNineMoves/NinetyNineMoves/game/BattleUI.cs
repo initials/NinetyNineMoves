@@ -18,6 +18,7 @@ namespace NinetyNineMoves
         private UIBox box;
         private Tweener targetTweener;
         private Tweener playerTweener;
+        private int[] directions;
 
         public BattleUI()
             : base()
@@ -45,6 +46,8 @@ namespace NinetyNineMoves
             targetTweener = new Tweener(FlxG.width, box.x + box.width, 0.9f, Circular.EaseOut);
             targetTweener.Start();
 
+            directions = new int[] { FlxHud.Keyboard_Arrow_Down, FlxHud.Keyboard_Arrow_Up, FlxHud.Keyboard_Arrow_Left, FlxHud.Keyboard_Arrow_Right};
+
         }
 
         /// <summary>
@@ -54,10 +57,24 @@ namespace NinetyNineMoves
         {
             if (visible)
             {
-                if (FlxG.keys.justPressed(Keys.Down))
+                if (FlxG.keys.justPressed(Keys.Down) && ((FlxSprite)(keys.getFirstExtant())).frame==directions[0])
                 {
                     keys.getFirstExtant().kill();
                 }
+                else if (FlxG.keys.justPressed(Keys.Up) && ((FlxSprite)(keys.getFirstExtant())).frame == directions[1])
+                {
+                    keys.getFirstExtant().kill();
+                }
+                else if (FlxG.keys.justPressed(Keys.Left) && ((FlxSprite)(keys.getFirstExtant())).frame == directions[2])
+                {
+                    keys.getFirstExtant().kill();
+                }
+                else if (FlxG.keys.justPressed(Keys.Right) && ((FlxSprite)(keys.getFirstExtant())).frame == directions[3])
+                {
+                    keys.getFirstExtant().kill();
+                }
+
+
                 if (keys.getFirstExtant() == null)
                 {
                     this.endBattle();
@@ -112,8 +129,9 @@ namespace NinetyNineMoves
             for (int i = 0; i < 4; i++)
             {
                 FlxSprite x;
-                keys.add(x = new FlxSprite(box.x + (i * 75), box.y).loadGraphic("flixel/buttons/map360", true, false, 100, 100));
-                x.frame = FlxHud.xboxButtonA;
+                keys.add(x = new FlxSprite(box.x + (i * 75), box.y).loadGraphic("flixel/buttons/MapWhite", true, false, 100, 100));
+                x.frame = directions[FlxU.randomInt(0,3)];
+
                 x.setScrollFactors(0, 0);
             }
 
