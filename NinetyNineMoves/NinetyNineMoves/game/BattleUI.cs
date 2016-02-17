@@ -40,10 +40,10 @@ namespace NinetyNineMoves
             keys = new FlxGroup();
             add(keys);
 
-            playerTweener = new Tweener(0, box.x, 1.0f, Circular.EaseOut);
+            playerTweener = new Tweener(0, box.x - 50, 1.0f, Circular.EaseOut);
             playerTweener.Start();
 
-            targetTweener = new Tweener(FlxG.width, box.x + box.width, 0.9f, Circular.EaseOut);
+            targetTweener = new Tweener(FlxG.width, box.x + box.width + 50, 0.9f, Circular.EaseOut);
             targetTweener.Start();
 
             directions = new int[] { FlxHud.Keyboard_Arrow_Down, FlxHud.Keyboard_Arrow_Up, FlxHud.Keyboard_Arrow_Left, FlxHud.Keyboard_Arrow_Right};
@@ -74,6 +74,17 @@ namespace NinetyNineMoves
                     keys.getFirstExtant().kill();
                 }
 
+                else if (FlxG.keys.justPressed(Keys.Down) || 
+                    FlxG.keys.justPressed(Keys.Up) ||
+                    FlxG.keys.justPressed(Keys.Left) ||
+                    FlxG.keys.justPressed(Keys.Right))
+                {
+                    for (int i = 0; i < keys.members.Count; i++)
+                    {
+                        keys.members[i].kill();
+
+                    }
+                }
 
                 if (keys.getFirstExtant() == null)
                 {
@@ -128,11 +139,12 @@ namespace NinetyNineMoves
             
             for (int i = 0; i < 4; i++)
             {
-                FlxSprite x;
-                keys.add(x = new FlxSprite(box.x + (i * 75), box.y).loadGraphic("flixel/buttons/MapWhite", true, false, 100, 100));
+                Key x;
+                x = new Key((int)(box.x + (i * 75)), (int)(box.y));
+                x.loadGraphic("flixel/buttons/MapWhite", true, false, 100, 100);
                 x.frame = directions[FlxU.randomInt(0,3)];
-
                 x.setScrollFactors(0, 0);
+                keys.add(x);
             }
 
             Console.WriteLine("Starting battle");
@@ -154,7 +166,5 @@ namespace NinetyNineMoves
             visible = false;
             Registry.canMove = true;
         }
-
-        
     }
 }

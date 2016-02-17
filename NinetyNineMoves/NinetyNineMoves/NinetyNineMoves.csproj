@@ -167,6 +167,7 @@
     <Compile Include="game\BattleUI.cs" />
     <Compile Include="game\CharacterComputerControlled.cs" />
     <Compile Include="game\CharacterPlayerControlled.cs" />
+    <Compile Include="game\Key.cs" />
     <Compile Include="game\MoveCounter.cs" />
     <Compile Include="game\UIBox.cs" />
     <Compile Include="Registry.cs" />
