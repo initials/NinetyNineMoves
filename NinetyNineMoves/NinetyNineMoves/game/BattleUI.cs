@@ -12,7 +12,7 @@ namespace NinetyNineMoves
 {
     class BattleUI : FlxGroup
     {
-        private FlxGroup keys;
+        private KeyGroup keys;
         private FlxSprite battleTarget;
         private FlxSprite battlePlayer;
         private UIBox box;
@@ -37,7 +37,7 @@ namespace NinetyNineMoves
 
             visible = false;
             
-            keys = new FlxGroup();
+            keys = new KeyGroup();
             add(keys);
 
             playerTweener = new Tweener(0, box.x - 50, 1.0f, Circular.EaseOut);
@@ -55,23 +55,23 @@ namespace NinetyNineMoves
         /// </summary>
         override public void update()
         {
-            if (visible)
+            if (visible && keys.getFirstNonDyingSprite() != null)
             {
-                if (FlxG.keys.justPressed(Keys.Down) && ((FlxSprite)(keys.getFirstExtant())).frame==directions[0])
+                if (FlxG.keys.justPressed(Keys.Down) && ((FlxSprite)(keys.getFirstNonDyingSprite())).frame == directions[0])
                 {
-                    keys.getFirstExtant().kill();
+                    ((Key)(keys.getFirstNonDyingSprite())).kill(Color.Green, 1.0f);
                 }
-                else if (FlxG.keys.justPressed(Keys.Up) && ((FlxSprite)(keys.getFirstExtant())).frame == directions[1])
+                else if (FlxG.keys.justPressed(Keys.Up) && ((FlxSprite)(keys.getFirstNonDyingSprite())).frame == directions[1])
                 {
-                    keys.getFirstExtant().kill();
+                    ((Key)(keys.getFirstNonDyingSprite())).kill(Color.Green, 1.0f);
                 }
-                else if (FlxG.keys.justPressed(Keys.Left) && ((FlxSprite)(keys.getFirstExtant())).frame == directions[2])
+                else if (FlxG.keys.justPressed(Keys.Left) && ((FlxSprite)(keys.getFirstNonDyingSprite())).frame == directions[2])
                 {
-                    keys.getFirstExtant().kill();
+                    ((Key)(keys.getFirstNonDyingSprite())).kill(Color.Green, 1.0f);
                 }
-                else if (FlxG.keys.justPressed(Keys.Right) && ((FlxSprite)(keys.getFirstExtant())).frame == directions[3])
+                else if (FlxG.keys.justPressed(Keys.Right) && ((FlxSprite)(keys.getFirstNonDyingSprite())).frame == directions[3])
                 {
-                    keys.getFirstExtant().kill();
+                    ((Key)(keys.getFirstNonDyingSprite())).kill(Color.Green, 1.0f);
                 }
 
                 else if (FlxG.keys.justPressed(Keys.Down) || 
@@ -81,16 +81,19 @@ namespace NinetyNineMoves
                 {
                     for (int i = 0; i < keys.members.Count; i++)
                     {
-                        keys.members[i].kill();
+                        ((Key)(keys.members[i])).kill(Color.Red, 1.0f);
 
                     }
                 }
 
-                if (keys.getFirstExtant() == null)
-                {
-                    this.endBattle();
-                }
+
             }
+            
+            if (keys.getFirstExtant() == null)
+            {
+                this.endBattle();
+            }
+
             playerTweener.Update(FlxG.elapsedAsGameTime);
             targetTweener.Update(FlxG.elapsedAsGameTime);
 

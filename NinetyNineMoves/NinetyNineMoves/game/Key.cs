@@ -17,7 +17,7 @@ namespace NinetyNineMoves
         /// <summary>
         /// A temporary bool to determine if the sprite is ready.
         /// </summary>
-        private bool _dying;
+        public bool dying;
 
         /// <summary>
         /// Sprite Constructor
@@ -27,7 +27,7 @@ namespace NinetyNineMoves
         public Key(int xPos, int yPos)
             : base(xPos, yPos)
         {
-            _dying = false;
+            dying = false;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace NinetyNineMoves
         /// </summary>
         override public void update()
         {
-            if (_dying) scale -= 0.05f;
+            if (dying) scale -= 0.05f;
             if (scale <= 0) base.kill();
 
             base.update();
@@ -114,7 +114,15 @@ namespace NinetyNineMoves
         /// </summary>
         public override void kill()
         {
-            _dying = true;
+            dying = true;
         }
+        public void kill(Color Color, float Timer)
+        {
+            dying = true;
+            this.color = Color;
+            
+        }
+
+
     }
 }

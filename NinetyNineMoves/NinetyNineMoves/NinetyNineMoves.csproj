@@ -168,6 +168,7 @@
     <Compile Include="game\CharacterComputerControlled.cs" />
     <Compile Include="game\CharacterPlayerControlled.cs" />
     <Compile Include="game\Key.cs" />
+    <Compile Include="game\KeyGroup.cs" />
     <Compile Include="game\MoveCounter.cs" />
     <Compile Include="game\UIBox.cs" />
     <Compile Include="Registry.cs" />
@@ -195,11 +196,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\XNAFlixel\XFlixelContent\XFlixelContent.contentproj">
-      <Project>{327F8527-448C-470E-9016-949859914C92}</Project>
-      <Name>XFlixelContent %28Content%29</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\XNAFlixel\XFlixel\midi-dot-net\Midi\Midi.csproj">
       <Project>{F60D8B7B-2D2E-4B94-A736-3783FFE1A25C}</Project>
       <Name>Midi</Name>
