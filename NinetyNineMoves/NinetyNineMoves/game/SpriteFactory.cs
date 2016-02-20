@@ -52,13 +52,23 @@ namespace NinetyNineMoves
         }
         public static FlxTilemap createCave()
         {
-            FlxCaveGenerator cav = new FlxCaveGenerator((int)Registry.levelSize.X, (int)Registry.levelSize.Y, 0.45f, 30);
+            FlxCaveGenerator cav = new FlxCaveGenerator((int)Registry.levelSize.X, (int)Registry.levelSize.Y, 0.55f, 30);
             
-            int[,] matr = cav.generateCaveLevel(null, null, null, null, null, null, new int[] { 0, 49 }, new int[] { 0, 49 });
+            int[,] matr = cav.generateCaveLevel(null, null, null, null, null, null, null, null);
+
             matr = cav.editRectangle(matr, 0, (int)Registry.levelSize.Y / 2, (int)Registry.levelSize.X, 4, 1);
             matr = cav.editRectangle(matr, (int)Registry.levelSize.X / 2, 0, 4, (int)Registry.levelSize.Y, 1);
 
             matr = cav.grow(matr);
+
+            matr = cav.editRectangle(matr, 0, 0, (int)Registry.levelSize.X, 1, 0);
+            matr = cav.editRectangle(matr, 0, 0, 1, (int)Registry.levelSize.Y, 0);
+
+            matr = cav.editRectangle(matr, 0, (int)Registry.levelSize.Y-1, (int)Registry.levelSize.X, 1, 0);
+            matr = cav.editRectangle(matr, (int)Registry.levelSize.X-1, 0, 1, (int)Registry.levelSize.Y, 0);
+
+
+
 
             string newMap = cav.convertMultiArrayToString(matr);
 
@@ -66,8 +76,10 @@ namespace NinetyNineMoves
             // Remap guide before loading map
             tiles.remapGuide = Registry.createAltTileRemap();
             tiles.auto = FlxTilemap.REMAPALT;
-            tiles.loadMap(newMap, FlxG.Content.Load<Texture2D>("tiles/oryx_16bit_fantasy_world_trans"), 24, 24);
+            tiles.loadMap(newMap, FlxG.Content.Load<Texture2D>("tiles/oryx_16bit_fantasy_world_trans"), Registry.tileSize, Registry.tileSize);
+
             tiles.setScrollFactors(1, 1);
+
             
 
             Registry.levelAsTilemap = tiles;

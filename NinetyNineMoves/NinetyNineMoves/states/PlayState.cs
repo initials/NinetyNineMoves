@@ -20,33 +20,45 @@ namespace NinetyNineMoves
         override public void create()
         {
             base.create();
-            Registry.levelSize = new Vector2(50, 50);
+            Registry.levelSize = Registry.getLevelSize();
 
             FlxG.elapsedTotal = 0;
 
             add(SpriteFactory.createCave());
+
+            createStaircase();
+
             
-            //create hero in middle
-
-            hero = SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "CharacterPlayerControlled" }, { "x", (((int)Registry.levelSize.X * 24) / 2 ).ToString()}, { "y", (((int)Registry.levelSize.X * 24)/2).ToString() } });
-            add(hero);
-
-            FlxG.follow(hero, 9);
-            FlxG.followBounds(0, 0, (int)Registry.levelSize.X * 24, (int)Registry.levelSize.Y * 24);
-
             enemies = new FlxGroup();
-            addRandomObjects(55, "CharacterComputerControlled", enemies);
+            addRandomObjects(5 * Registry.levelNumber, "CharacterComputerControlled", enemies);
             add(enemies);
 
             pickups = new FlxGroup();
             addRandomObjects(55, "PickUp", pickups);
             add(pickups);
 
+            hero = SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "CharacterPlayerControlled" }, 
+            { "x", (((int)Registry.levelSize.X * Registry.tileSize) / 2).ToString() }, { "y", (((int)Registry.levelSize.X * Registry.tileSize) / 2).ToString() } });
+            add(hero);
+
+            FlxG.follow(hero, 9);
+            FlxG.followBounds(0, 0, (int)Registry.levelSize.X * Registry.tileSize, (int)Registry.levelSize.Y * Registry.tileSize);
+
             //FlxG.showBounds = true;
-            add(SpriteFactory.createTileblock(new Dictionary<string, string> { { "Name", "UIBox" }, { "x", "10" }, { "y", "10" }, { "width", "64" }, { "height", "32" } }));
+            //add(SpriteFactory.createTileblock(new Dictionary<string, string> { { "Name", "UIBox" }, { "x", "10" }, { "y", "10" }, { "width", "64" }, { "height", "32" } }));
+
             add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "MoveCounter" }, { "x", "-1" }, { "y", "-1" } }));
 
             add(battleUI = new BattleUI());
+        }
+
+        private static void createStaircase()
+        {
+
+            Vector2 randomSpot = Registry.levelAsTilemap.getRandomTilePositionWithType(Registry.levelAsTilemap.remapGuide[15]);
+            Registry.levelAsTilemap.setTile((int)randomSpot.X / Registry.tileSize, (int)randomSpot.Y / Registry.tileSize, 66);
+            Console.WriteLine("Created stair case at: {0} {1}", (int)randomSpot.X / Registry.tileSize, (int)randomSpot.Y / Registry.tileSize);
+
         }
 
         private void addRandomObjects(int NumberToAdd, string typeOfObject, FlxGroup group)
@@ -61,7 +73,7 @@ namespace NinetyNineMoves
 
         override public void update()
         {
-            FlxU.overlap(hero, pickups, overlapped);
+            //FlxU.overlap(hero, pickups, overlapped);
             FlxU.overlap(hero, enemies, overlapEnemy);
 
             base.update();

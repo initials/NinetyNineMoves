@@ -170,6 +170,7 @@
     <Compile Include="game\Key.cs" />
     <Compile Include="game\KeyGroup.cs" />
     <Compile Include="game\MoveCounter.cs" />
+    <Compile Include="game\Staircase.cs" />
     <Compile Include="game\UIBox.cs" />
     <Compile Include="Registry.cs" />
     <Compile Include="states\TestGround.cs" />

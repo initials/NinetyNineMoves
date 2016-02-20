@@ -10,38 +10,24 @@ using org.flixel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using XNATweener;
-
 namespace NinetyNineMoves
 {
-    class Character : FlxSprite
+    class Staircase : FlxSprite
     {
         /// <summary>
         /// A temporary bool to determine if the sprite is ready.
         /// </summary>
         private bool _ready;
 
-        public Vector2Tweener tween;
-
         /// <summary>
         /// Sprite Constructor
         /// </summary>
         /// <param name="xPos"></param>
         /// <param name="yPos"></param>
-        public Character(int xPos, int yPos)
+        public Staircase(int xPos, int yPos)
             : base(xPos, yPos)
         {
-            tween = new Vector2Tweener(new Vector2(x,y), new Vector2(x,y), 0.3f, XNATweener.Cubic.EaseOut);
-
-            tween.Ended +=new EndHandler(endTween);
-
-            tween.Pause();
             
-        }
-
-        public void endTween()
-        {
-            tween.Pause();
         }
 
         /// <summary>
@@ -49,57 +35,7 @@ namespace NinetyNineMoves
         /// </summary>
         override public void update()
         {
-            if (Registry.canMove)
-                move();
-
-            x = tween.Position.X;
-            y = tween.Position.Y;
-
-            tween.Update(FlxG.elapsedAsGameTime);
-
             base.update();
-        }
-
-        public virtual void move()
-        {
-            
-        }
-
-        public virtual void moveRight()
-        {
-
-
-            tween = new Vector2Tweener(new Vector2(x, y), new Vector2(x + 24, y), moveSpeed(), XNATweener.Cubic.EaseOut);
-            tween.Ended += new EndHandler(endTween);
-        }
-
-
-
-        public virtual void moveLeft()
-        {
-
-            tween = new Vector2Tweener(new Vector2(x, y), new Vector2(x - 24, y), moveSpeed(), XNATweener.Cubic.EaseOut);
-            tween.Ended += new EndHandler(endTween);
-        }
-
-        public virtual void moveUp()
-        {
-
-            tween = new Vector2Tweener(new Vector2(x, y), new Vector2(x, y - 24), moveSpeed(), XNATweener.Cubic.EaseOut);
-            tween.Ended += new EndHandler(endTween);
-        }
-
-        public virtual void moveDown()
-        {
-
-            tween = new Vector2Tweener(new Vector2(x, y), new Vector2(x, y + 24), moveSpeed(), XNATweener.Cubic.EaseOut);
-            tween.Ended += new EndHandler(endTween);
-        }
-
-        private static float moveSpeed()
-        {
-            //0.3f
-            return 0.03f;
         }
 
         /// <summary>
