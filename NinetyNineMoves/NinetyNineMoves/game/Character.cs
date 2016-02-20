@@ -99,7 +99,7 @@ namespace NinetyNineMoves
         private static float moveSpeed()
         {
             //0.3f
-            return 0.03f;
+            return 0.3f;
         }
 
         /// <summary>
