@@ -39,7 +39,7 @@ namespace NinetyNineMoves
 
         public override void move()
         {
-            if (!tween.Playing)
+            if (!tween.Playing && Registry.movesRemaining>=1)
             {
                 if (FlxG.keys.S)
                 {

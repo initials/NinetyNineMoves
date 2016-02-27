@@ -14,8 +14,10 @@ namespace NinetyNineMoves
     {
         private FlxGroup pickups;
         private FlxGroup enemies;
-        private FlxSprite hero;
+        public FlxSprite hero;
         private BattleUI battleUI;
+        private MessageBox messageBox;
+
 
         override public void create()
         {
@@ -24,7 +26,12 @@ namespace NinetyNineMoves
 
             FlxG.elapsedTotal = 0;
 
+            Registry.movesRemaining = 15;
+
             add(SpriteFactory.createCave());
+
+            hero = SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "CharacterPlayerControlled" }, 
+            { "x", (((int)Registry.levelSize.X * Registry.tileSize) / 2).ToString() }, { "y", (((int)Registry.levelSize.X * Registry.tileSize) / 2).ToString() } });
 
             createStaircase();
 
@@ -37,8 +44,7 @@ namespace NinetyNineMoves
             addRandomObjects(55, "PickUp", pickups);
             add(pickups);
 
-            hero = SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "CharacterPlayerControlled" }, 
-            { "x", (((int)Registry.levelSize.X * Registry.tileSize) / 2).ToString() }, { "y", (((int)Registry.levelSize.X * Registry.tileSize) / 2).ToString() } });
+
             add(hero);
 
             FlxG.follow(hero, 9);
@@ -50,14 +56,30 @@ namespace NinetyNineMoves
             add(SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "MoveCounter" }, { "x", "-1" }, { "y", "-1" } }));
 
             add(battleUI = new BattleUI());
+
+
+            add(messageBox = new MessageBox());
+
         }
 
-        private static void createStaircase()
+        public void createStaircase()
         {
 
             Vector2 randomSpot = Registry.levelAsTilemap.getRandomTilePositionWithType(Registry.levelAsTilemap.remapGuide[15]);
             Registry.levelAsTilemap.setTile((int)randomSpot.X / Registry.tileSize, (int)randomSpot.Y / Registry.tileSize, 66);
-            Console.WriteLine("Created stair case at: {0} {1}", (int)randomSpot.X / Registry.tileSize, (int)randomSpot.Y / Registry.tileSize);
+            Vector2 directions = new Vector2((int)randomSpot.X / Registry.tileSize, (int)randomSpot.Y / Registry.tileSize);
+            Vector2 playerPos = new Vector2((int)hero.x / Registry.tileSize, (int)hero.y / Registry.tileSize);
+            Vector2 toGetTo = playerPos - directions;
+            string dirX = "left";
+            string dirY = "up";
+            if (toGetTo.X < 0) dirX = "right";
+            if (toGetTo.X < 0) dirY = "down";
+
+
+            Console.WriteLine("Created stair case at: {0} {1} to get there go {2} {4} {3} {5}", directions.X, directions.Y, toGetTo.X, toGetTo.Y, dirX,dirY);
+
+
+
 
         }
 
@@ -73,6 +95,12 @@ namespace NinetyNineMoves
 
         override public void update()
         {
+            if (Registry.movesRemaining <= 0)
+            {
+                messageBox.visible = true;
+                messageBox.setText("No Moves Remaining\nBuy more moves\n25 for $0.99\n99 more only $1.99");
+            }
+
             //FlxU.overlap(hero, pickups, overlapped);
             FlxU.overlap(hero, enemies, overlapEnemy);
 

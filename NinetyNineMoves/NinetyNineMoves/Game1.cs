@@ -33,6 +33,11 @@ namespace Loader_NinetyNineMoves
 
             int div = 2;
             FlxG.zoom = 1;
+#if DEBUGX2
+            div = 2;
+            FlxG.zoom = 2;
+#endif
+
 #if ! DEBUG
             FlxG.zoom = 2;
             div = 1;

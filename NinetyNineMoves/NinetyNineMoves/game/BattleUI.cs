@@ -40,11 +40,21 @@ namespace NinetyNineMoves
             keys = new KeyGroup();
             add(keys);
 
+#if DEBUGX2
+            playerTweener = new Tweener(0, box.x + 50, 1.0f, Circular.EaseOut);
+            playerTweener.Start();
+
+            targetTweener = new Tweener(FlxG.width, box.x + box.width - 50, 0.9f, Circular.EaseOut);
+            targetTweener.Start();
+#else
             playerTweener = new Tweener(0, box.x - 50, 1.0f, Circular.EaseOut);
             playerTweener.Start();
 
             targetTweener = new Tweener(FlxG.width, box.x + box.width + 50, 0.9f, Circular.EaseOut);
             targetTweener.Start();
+#endif
+
+
 
             directions = new int[] { FlxHud.Keyboard_Arrow_Down, FlxHud.Keyboard_Arrow_Up, FlxHud.Keyboard_Arrow_Left, FlxHud.Keyboard_Arrow_Right};
 
@@ -104,10 +114,13 @@ namespace NinetyNineMoves
         {
 
             base.render(spriteBatch);
-
+#if DEBUGX2
+            renderWithOffset(spriteBatch, battleTarget, targetTweener.Position, box.y + (box.height / 1.5f), 3);
+            renderWithOffset(spriteBatch, battlePlayer, playerTweener.Position, box.y + (box.height / 1.5f), 3);
+#else
             renderWithOffset(spriteBatch, battleTarget, targetTweener.Position, box.y + (box.height / 2), 6);
             renderWithOffset(spriteBatch, battlePlayer, playerTweener.Position, box.y + (box.height / 2), 6);
-        
+#endif   
         }
 
         private void renderWithOffset(SpriteBatch spriteBatch, FlxSprite obj, float localX, float localY, float localScale)
