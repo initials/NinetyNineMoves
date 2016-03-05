@@ -67,9 +67,6 @@ namespace NinetyNineMoves
             matr = cav.editRectangle(matr, 0, (int)Registry.levelSize.Y-1, (int)Registry.levelSize.X, 1, 0);
             matr = cav.editRectangle(matr, (int)Registry.levelSize.X-1, 0, 1, (int)Registry.levelSize.Y, 0);
 
-
-
-
             string newMap = cav.convertMultiArrayToString(matr);
 
             FlxTilemap tiles = new FlxTilemap();
@@ -79,8 +76,6 @@ namespace NinetyNineMoves
             tiles.loadMap(newMap, FlxG.Content.Load<Texture2D>("tiles/oryx_16bit_fantasy_world_trans"), Registry.tileSize, Registry.tileSize);
 
             tiles.setScrollFactors(1, 1);
-
-            
 
             Registry.levelAsTilemap = tiles;
 

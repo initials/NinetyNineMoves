@@ -41,7 +41,7 @@ namespace NinetyNineMoves
         {
             if (!tween.Playing && Registry.movesRemaining>=1)
             {
-                if (FlxG.keys.S)
+                if (FlxControl.DOWN)
                 {
                     int tileDown = Registry.levelAsTilemap.getTile((int)((x + 12) / 24), (int)((y + 36) / 24));
                     int[] empties = Registry.levelAsTilemap.remapGuide[15];
@@ -53,7 +53,7 @@ namespace NinetyNineMoves
 
                     }
                 }
-                if (FlxG.keys.W)
+                if (FlxControl.UP)
                 {
                     int tileDown = Registry.levelAsTilemap.getTile((int)((x + 12) / 24), (int)((y - 12) / 24));
                     int[] empties = Registry.levelAsTilemap.remapGuide[15];
@@ -64,7 +64,7 @@ namespace NinetyNineMoves
 
                     }
                 }
-                if (FlxG.keys.A)
+                if (FlxControl.LEFT)
                 {
                     int tileDown = Registry.levelAsTilemap.getTile((int)((x - 12) / 24), (int)((y + 12) / 24));
                     int[] empties = Registry.levelAsTilemap.remapGuide[15];
@@ -78,7 +78,7 @@ namespace NinetyNineMoves
 
                     }
                 }
-                if (FlxG.keys.D)
+                if (FlxControl.RIGHT)
                 {
                     int tileDown = Registry.levelAsTilemap.getTile((int)((x + 36) / 24), (int)((y + 12) / 24));
                     int[] empties = Registry.levelAsTilemap.remapGuide[15];

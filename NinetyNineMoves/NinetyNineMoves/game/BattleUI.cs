@@ -67,27 +67,27 @@ namespace NinetyNineMoves
         {
             if (visible && keys.getFirstNonDyingSprite() != null)
             {
-                if (FlxG.keys.justPressed(Keys.Down) && ((FlxSprite)(keys.getFirstNonDyingSprite())).frame == directions[0])
+                if (FlxControl.DOWNJUSTPRESSED && ((FlxSprite)(keys.getFirstNonDyingSprite())).frame == directions[0])
                 {
                     ((Key)(keys.getFirstNonDyingSprite())).kill(Color.Green, 1.0f);
                 }
-                else if (FlxG.keys.justPressed(Keys.Up) && ((FlxSprite)(keys.getFirstNonDyingSprite())).frame == directions[1])
+                else if (FlxControl.UPJUSTPRESSED && ((FlxSprite)(keys.getFirstNonDyingSprite())).frame == directions[1])
                 {
                     ((Key)(keys.getFirstNonDyingSprite())).kill(Color.Green, 1.0f);
                 }
-                else if (FlxG.keys.justPressed(Keys.Left) && ((FlxSprite)(keys.getFirstNonDyingSprite())).frame == directions[2])
+                else if (FlxControl.LEFTJUSTPRESSED && ((FlxSprite)(keys.getFirstNonDyingSprite())).frame == directions[2])
                 {
                     ((Key)(keys.getFirstNonDyingSprite())).kill(Color.Green, 1.0f);
                 }
-                else if (FlxG.keys.justPressed(Keys.Right) && ((FlxSprite)(keys.getFirstNonDyingSprite())).frame == directions[3])
+                else if (FlxControl.RIGHTJUSTPRESSED && ((FlxSprite)(keys.getFirstNonDyingSprite())).frame == directions[3])
                 {
                     ((Key)(keys.getFirstNonDyingSprite())).kill(Color.Green, 1.0f);
                 }
 
-                else if (FlxG.keys.justPressed(Keys.Down) || 
-                    FlxG.keys.justPressed(Keys.Up) ||
-                    FlxG.keys.justPressed(Keys.Left) ||
-                    FlxG.keys.justPressed(Keys.Right))
+                else if (FlxControl.DOWNJUSTPRESSED ||
+                    FlxControl.UPJUSTPRESSED ||
+                    FlxControl.LEFTJUSTPRESSED ||
+                    FlxControl.RIGHTJUSTPRESSED )
                 {
                     for (int i = 0; i < keys.members.Count; i++)
                     {

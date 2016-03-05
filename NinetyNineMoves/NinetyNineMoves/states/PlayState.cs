@@ -26,8 +26,6 @@ namespace NinetyNineMoves
 
             FlxG.elapsedTotal = 0;
 
-            Registry.movesRemaining = 15;
-
             add(SpriteFactory.createCave());
 
             hero = SpriteFactory.createSprite(new Dictionary<string, string> { { "Name", "CharacterPlayerControlled" }, 
@@ -64,9 +62,9 @@ namespace NinetyNineMoves
 
         public void createStaircase()
         {
-
             Vector2 randomSpot = Registry.levelAsTilemap.getRandomTilePositionWithType(Registry.levelAsTilemap.remapGuide[15]);
             Registry.levelAsTilemap.setTile((int)randomSpot.X / Registry.tileSize, (int)randomSpot.Y / Registry.tileSize, 66);
+            
             Vector2 directions = new Vector2((int)randomSpot.X / Registry.tileSize, (int)randomSpot.Y / Registry.tileSize);
             Vector2 playerPos = new Vector2((int)hero.x / Registry.tileSize, (int)hero.y / Registry.tileSize);
             Vector2 toGetTo = playerPos - directions;
@@ -74,12 +72,7 @@ namespace NinetyNineMoves
             string dirY = "up";
             if (toGetTo.X < 0) dirX = "right";
             if (toGetTo.X < 0) dirY = "down";
-
-
             Console.WriteLine("Created stair case at: {0} {1} to get there go {2} {4} {3} {5}", directions.X, directions.Y, toGetTo.X, toGetTo.Y, dirX,dirY);
-
-
-
 
         }
 

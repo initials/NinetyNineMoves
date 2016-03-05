@@ -17,7 +17,7 @@ namespace NinetyNineMoves
         public static FlxTilemap levelAsTilemap;
         public static int movesRemaining = 99;
 
-        public static Vector2 levelSize = new Vector2(50,50);
+        public static Vector2 levelSize = new Vector2(15,15);
         public static int levelNumber = 1;
 
         public static int levelsPerWorld = 4;
@@ -37,7 +37,7 @@ namespace NinetyNineMoves
 
         public static Vector2 getLevelSize()
         {
-            return new Vector2(50, 50);
+            return new Vector2(20, 20);
 
         }
 

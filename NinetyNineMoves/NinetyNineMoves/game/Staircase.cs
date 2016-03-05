@@ -35,6 +35,7 @@ namespace NinetyNineMoves
         /// </summary>
         override public void update()
         {
+            this.color = new Color(FlxU.random(0, 1.0f), 1, 1);
             base.update();
         }
 
